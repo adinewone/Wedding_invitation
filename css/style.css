@@ -1,0 +1,853 @@
+/* =========================================================
+   ADITYA & VAISHNAVI
+   Shared design system: burgundy + antique gold + ivory
+   Mobile first
+   ========================================================= */
+
+@font-face {
+  font-family: "Palisade";
+  src:
+    url("../fonts/Palisade-Regular.woff2") format("woff2"),
+    url("../fonts/Palisade-Regular.woff") format("woff"),
+    url("../fonts/Palisade-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --burgundy-950: #350704;
+  --burgundy-900: #470906;
+  --burgundy-800: #64130f;
+  --burgundy-700: #7e1b15;
+  --burgundy-500: #a03327;
+  --gold-700: #9d6f22;
+  --gold-600: #bb8a31;
+  --gold-400: #e2c27a;
+  --gold-200: #f2dfae;
+  --ivory: #fbf7ef;
+  --ivory-2: #f3eadc;
+  --ink: #5a2119;
+  --olive-none: transparent;
+
+  --serif: "Cormorant Garamond", "Times New Roman", serif;
+  --body: Georgia, "Times New Roman", serif;
+  --display: "Palisade", "Baskerville", "Palatino Linotype", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ivory);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+:lang(mr) {
+  font-family: "Noto Serif Devanagari", "Nirmala UI", "Mangal", serif;
+}
+
+button { font: inherit; }
+
+.page {
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* =========================================================
+   STEP 1 — CURTAIN
+   ========================================================= */
+
+.curtain-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--burgundy-900);
+  overflow: hidden;
+  transition: opacity .75s ease .35s;
+}
+
+.curtain {
+  position: absolute;
+  top: -2%;
+  bottom: -2%;
+  width: 59%;
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(255,93,68,.18), transparent 44%),
+    repeating-linear-gradient(90deg, rgba(255,235,220,.055) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(
+      90deg,
+      #300504 0%, #510a07 7%, #8a1c14 13%, #67100b 18%,
+      #3e0705 25%, #75140e 32%, #9f281e 38%, #67100a 44%,
+      #3a0604 51%, #72130c 59%, #941f17 65%, #500a07 73%,
+      #310504 81%, #69100b 89%, #891c15 95%, #370604 100%
+    );
+  box-shadow:
+    inset -26px 0 40px rgba(12,0,0,.48),
+    inset 22px 0 30px rgba(255,90,60,.10),
+    0 0 42px rgba(0,0,0,.30);
+  transition: transform 4.25s cubic-bezier(.77,0,.18,1);
+  will-change: transform;
+}
+
+.curtain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 12px,
+      rgba(255,220,208,.13) 14px,
+      rgba(255,220,208,.03) 18px,
+      transparent 20px 31px
+    );
+  mix-blend-mode: screen;
+  opacity: .9;
+}
+
+.curtain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 24px,
+      rgba(0,0,0,.33) 27px 33px,
+      transparent 36px 56px
+    ),
+    linear-gradient(90deg, rgba(0,0,0,.4), transparent 19%, transparent 79%, rgba(0,0,0,.43));
+  mix-blend-mode: multiply;
+}
+
+.curtain-left {
+  left: 0;
+  clip-path: polygon(0 0,100% 0,96% 10%,92% 20%,88% 31%,83% 43%,78% 56%,73% 69%,68% 82%,63% 100%,0 100%);
+}
+.curtain-right {
+  right: 0;
+  clip-path: polygon(0 0,100% 0,100% 100%,37% 100%,32% 82%,27% 69%,22% 56%,17% 43%,12% 31%,8% 20%,4% 10%);
+}
+
+.curtain-screen.is-opening .curtain-left {
+  transform: translateX(-109%) skewX(-2deg);
+}
+.curtain-screen.is-opening .curtain-right {
+  transform: translateX(109%) skewX(2deg);
+}
+
+/* =========================================================
+   STEP 1 — FLORAL A & V BUTTON
+   ========================================================= */
+
+.monogram-button {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  top: 50%;
+  width: 152px;
+  height: 152px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(246,218,158,.9);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 26%, rgba(255,255,255,.30), transparent 29%),
+    linear-gradient(145deg, #e1bd68 0%, #ad7822 54%, #d9ad4f 100%);
+  box-shadow:
+    0 0 0 7px rgba(221,185,103,.13),
+    0 14px 38px rgba(0,0,0,.36),
+    inset 0 2px 5px rgba(255,255,255,.50),
+    inset 0 -9px 16px rgba(78,38,0,.25);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .16s ease, transform .25s ease;
+}
+
+.monogram-button::before,
+.monogram-button::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(255,245,211,.68);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.monogram-button::after {
+  inset: 17px;
+  border-color: rgba(117,75,19,.35);
+}
+
+.monogram {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+  color: #7a4d18;
+  text-shadow: 0 1px rgba(255,255,255,.55);
+  font-family: var(--display);
+  font-size: 45px;
+  line-height: 1;
+}
+.monogram i {
+  font-family: var(--serif);
+  font-size: 23px;
+  font-style: normal;
+}
+.monogram b { font-weight: 400; }
+
+.monogram-button.is-hiding {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.86);
+  pointer-events: none;
+}
+
+/* =========================================================
+   SHARED LANGUAGE CONTROL
+   ========================================================= */
+
+.language-switch {
+  position: absolute;
+  z-index: 30;
+  top: max(18px, env(safe-area-inset-top));
+  right: 18px;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 30px;
+  background: rgba(255,250,242,.97);
+  box-shadow: 0 5px 18px rgba(55,10,5,.16);
+  border: 1px solid rgba(155,111,34,.18);
+}
+
+.language {
+  min-width: 48px;
+  height: 34px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 11px/1 var(--body);
+  cursor: pointer;
+}
+.language.active {
+  color: #fff;
+  background: var(--burgundy-800);
+}
+
+/* =========================================================
+   STEP 2
+   ========================================================= */
+
+.page-names {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 48%, #fffdf8 0, var(--ivory) 63%, #eadfce 100%);
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 1.1s ease, transform 1.4s cubic-bezier(.22,1,.36,1);
+}
+.page-names.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.side-curtain {
+  position: absolute;
+  top: -2%;
+  bottom: -2%;
+  width: 20%;
+  background:
+    repeating-linear-gradient(90deg,#410705 0 8px,#71130d 9px 17px,#942219 18px 22px,#530a07 23px 31px);
+  box-shadow: inset 0 0 30px rgba(0,0,0,.43);
+}
+.side-left {
+  left: 0;
+  clip-path: polygon(0 0,100% 0,82% 20%,65% 43%,55% 65%,42% 100%,0 100%);
+}
+.side-right {
+  right: 0;
+  clip-path: polygon(0 0,100% 0,100% 100%,58% 100%,45% 65%,35% 43%,18% 20%);
+}
+
+.names-content {
+  position: relative;
+  z-index: 5;
+  width: min(80%, 470px);
+  text-align: center;
+  padding: 75px 0 45px;
+}
+
+.floral-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
+  color: var(--gold-600);
+  font-size: 25px;
+}
+.floral-line::before,
+.floral-line::after {
+  content: "";
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-600));
+}
+.floral-line::after { transform: scaleX(-1); }
+
+.eyebrow,
+.wedding-date,
+.intro,
+.scroll-cue {
+  font-family: var(--body);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(11px, 2.9vw, 14px);
+  line-height: 1.7;
+  letter-spacing: .16em;
+}
+
+.couple-names {
+  margin: 25px 0 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: .82;
+}
+.couple-names span {
+  display: block;
+  font-size: clamp(4.4rem, 18vw, 7.2rem);
+  letter-spacing: -.045em;
+}
+.couple-names small {
+  display: block;
+  margin: 13px 0;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 400;
+}
+
+.wedding-date {
+  margin: 30px 0 0;
+  font-size: clamp(12px, 3vw, 15px);
+  letter-spacing: .23em;
+  font-weight: 600;
+}
+
+.intro {
+  margin: 90px auto 0;
+  font-size: clamp(12px, 3.1vw, 15px);
+  line-height: 1.8;
+  letter-spacing: .10em;
+}
+
+.scroll-cue {
+  margin-top: 58px;
+  color: var(--ink);
+  font-size: 11px;
+  letter-spacing: .25em;
+}
+.scroll-cue b {
+  display: block;
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   STEP 3 — BURGUNDY + IVORY, NO GREEN
+   ========================================================= */
+
+.page-welcome {
+  display: grid;
+  place-items: center;
+  padding: 78px 20px 55px;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(226,194,122,.17), transparent 25%),
+    linear-gradient(180deg, var(--burgundy-800), var(--burgundy-900));
+  color: var(--ivory);
+}
+
+.language-dark .language {
+  color: var(--ink);
+}
+.language-dark .language.active {
+  background: var(--gold-600);
+  color: white;
+}
+
+.welcome-inner {
+  width: min(100%, 500px);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.welcome-decoration {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold-400);
+  font-size: 45px;
+  white-space: nowrap;
+  letter-spacing: 12px;
+}
+.welcome-decoration.top { top: 70px; }
+.welcome-decoration.bottom { bottom: 30px; font-size: 50px; }
+
+.welcome-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 10vw, 4.8rem);
+  line-height: 1.15;
+  font-weight: 400;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+.welcome-copy {
+  margin: 34px 0 30px;
+  font-family: var(--body);
+  font-size: clamp(15px, 4vw, 18px);
+  line-height: 1.65;
+  color: rgba(255,248,238,.94);
+}
+
+.couple-art-frame {
+  width: min(89vw, 390px);
+  margin: 24px auto 0;
+  padding: 9px;
+  background: linear-gradient(145deg, var(--gold-200), var(--gold-600), var(--gold-200));
+  border-radius: 44% 44% 40% 40%;
+  box-shadow: 0 18px 40px rgba(0,0,0,.30);
+}
+.couple-art-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 968/914;
+  object-fit: cover;
+  border-radius: 40% 40% 36% 36%;
+}
+
+/* =========================================================
+   STEP 4A — LOCATION
+   ========================================================= */
+
+.page-location {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(226,194,122,.22), transparent 24%),
+    linear-gradient(180deg, var(--ivory), #eee2d1);
+  padding: 82px 18px 65px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.location-inner {
+  width: min(100%, 500px);
+  text-align: center;
+}
+
+.section-floral {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  color: var(--gold-600);
+  font-size: 31px;
+  margin-bottom: 12px;
+}
+
+.section-kicker {
+  margin: 0;
+  font: 600 11px/1.5 var(--body);
+  letter-spacing: .28em;
+  color: var(--burgundy-700);
+}
+
+.section-title {
+  margin: 10px 0 24px;
+  font: 400 clamp(2.8rem, 10vw, 4.6rem)/1 var(--display);
+  color: var(--ink);
+}
+
+.location-photo {
+  margin: 0 auto;
+  width: min(94vw, 460px);
+  padding: 7px;
+  background: linear-gradient(145deg, var(--gold-200), var(--gold-600), var(--gold-200));
+  border-radius: 48% 48% 12% 12%;
+  box-shadow: 0 14px 32px rgba(70,25,10,.20);
+}
+.location-photo img {
+  display: block;
+  width: 100%;
+  height: clamp(290px, 72vw, 390px);
+  object-fit: cover;
+  border-radius: 43% 43% 9% 9%;
+}
+
+.location-card {
+  margin: -4px auto 0;
+  width: min(92vw, 410px);
+  padding: 25px 20px 22px;
+  background: rgba(255,250,242,.97);
+  border: 1px solid rgba(157,111,34,.25);
+  box-shadow: 0 14px 34px rgba(60,20,10,.12);
+}
+.pin {
+  color: var(--gold-600);
+  font-size: 28px;
+}
+.location-card h3 {
+  margin: 5px 0 3px;
+  font: 400 2rem/1.1 var(--display);
+  color: var(--ink);
+}
+.location-card p {
+  margin: 0 0 18px;
+  font: 600 14px/1.5 var(--body);
+  letter-spacing: .08em;
+  color: #765148;
+}
+.map-button {
+  border: 1px solid var(--gold-600);
+  background: var(--burgundy-800);
+  color: #fff8e8;
+  padding: 12px 20px;
+  letter-spacing: .13em;
+  font: 600 11px/1 var(--body);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .curtain { width: 53%; }
+  .side-curtain { width: 17%; }
+  .names-content { width: min(62%, 560px); }
+}
+
+@media (max-width: 430px) {
+  .language-switch {
+    top: max(12px, env(safe-area-inset-top));
+    right: 12px;
+    padding: 3px;
+  }
+
+  .language {
+    min-width: 44px;
+    height: 31px;
+    font-size: 10px;
+  }
+
+  .monogram-button {
+    width: 132px;
+    height: 132px;
+  }
+
+  .monogram { font-size: 38px; }
+  .monogram i { font-size: 20px; }
+
+  .names-content {
+    width: min(88%, 430px);
+    padding: 66px 0 34px;
+  }
+
+  .floral-line {
+    margin-bottom: 15px;
+    font-size: 20px;
+    gap: 12px;
+  }
+
+  .floral-line::before,
+  .floral-line::after { width: 34px; }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: .11em;
+  }
+
+  .couple-names { margin-top: 18px; }
+  .couple-names span { font-size: clamp(3.55rem, 17.8vw, 5.2rem); }
+  .couple-names small { margin: 9px 0; font-size: 1.65rem; }
+
+  .wedding-date {
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: .15em;
+  }
+
+  .intro {
+    margin-top: 52px;
+    font-size: 10px;
+    line-height: 1.65;
+    letter-spacing: .07em;
+  }
+
+  .scroll-cue { margin-top: 34px; }
+
+  .page-welcome {
+    min-height: 100svh;
+    padding: 76px 16px 42px;
+  }
+
+  .welcome-decoration.top {
+    top: 62px;
+    font-size: 30px;
+    letter-spacing: 6px;
+  }
+
+  .welcome-title {
+    width: min(92vw, 360px);
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(1.9rem, 7.4vw, 2.65rem);
+    line-height: 1.12;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .welcome-copy {
+    width: min(88vw, 330px);
+    margin: 21px auto 0;
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .couple-art-frame {
+    width: min(82vw, 350px);
+    margin-top: 18px;
+    padding: 7px;
+  }
+
+  .page-location {
+    min-height: 100svh;
+    padding: 70px 14px 44px;
+  }
+
+  .section-floral {
+    font-size: 25px;
+    gap: 9px;
+    margin-bottom: 8px;
+  }
+
+  .section-kicker {
+    font-size: 9px;
+    letter-spacing: .19em;
+  }
+
+  .section-title {
+    margin: 7px 0 18px;
+    font-size: clamp(2.25rem, 10vw, 3.4rem);
+  }
+
+  .location-photo {
+    width: min(88vw, 360px);
+    padding: 5px;
+  }
+
+  .location-photo img {
+    height: auto;
+    aspect-ratio: 920 / 832;
+  }
+
+  .location-card {
+    width: min(88vw, 360px);
+    padding: 18px 14px;
+  }
+
+  .location-card h3 { font-size: 1.7rem; }
+  .location-card p { font-size: 12px; margin-bottom: 14px; }
+}
+
+@media (max-height: 700px) and (max-width: 430px) {
+  .page-welcome { padding-top: 66px; padding-bottom: 26px; }
+  .welcome-decoration.top { top: 53px; }
+  .welcome-title { font-size: 1.76rem; width: min(91vw, 330px); }
+  .welcome-copy { margin-top: 15px; margin-bottom: 18px; width: min(88vw, 300px); }
+  .couple-art-frame { width: min(68vw, 285px); margin-top: 10px; }
+}
+
+@media (max-width: 360px) {
+  .welcome-title { font-size: 1.62rem; width: 88vw; }
+  .welcome-copy { font-size: 12px; width: 84vw; }
+  .couple-art-frame { width: 74vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}
+
+
+/* =========================================================
+   STEP 5 — THANK YOU / TEATRO PAPER CARD
+   ========================================================= */
+.page-thank-you {
+  min-height: 100svh;
+  padding: 34px 12px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(226,194,122,.16), transparent 24%),
+    radial-gradient(circle at 88% 75%, rgba(226,194,122,.12), transparent 28%),
+    linear-gradient(145deg, #5a100b, #7d2018 48%, #4b0906);
+  color: var(--ink);
+}
+
+.thank-you-pattern {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .24;
+}
+.pattern-cherub {
+  position: absolute;
+  color: var(--gold-200);
+  font-family: Georgia, serif;
+  font-size: clamp(55px, 15vw, 105px);
+  transform: rotate(-20deg);
+}
+.pattern-cherub.p1 { left: -10px; top: 14%; }
+.pattern-cherub.p2 { right: -18px; top: 29%; transform: rotate(18deg); }
+.pattern-cherub.p3 { left: -15px; bottom: 17%; transform: rotate(12deg); }
+.pattern-cherub.p4 { right: -12px; bottom: 6%; transform: rotate(-24deg); }
+
+.thank-language { top: max(14px, env(safe-area-inset-top)); }
+
+.thank-paper {
+  position: relative;
+  z-index: 2;
+  width: min(91vw, 520px);
+  min-height: min(78svh, 660px);
+  padding: clamp(54px, 10vw, 82px) clamp(24px, 7vw, 58px);
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,.8), transparent 28%),
+    linear-gradient(135deg, #fffdf7, #f7f0e4);
+  box-shadow: 0 20px 45px rgba(30,0,0,.34);
+  clip-path: polygon(
+    3% 4%, 9% 2%, 16% 4%, 24% 2%, 32% 4%, 40% 2%, 48% 4%, 56% 2%, 64% 4%, 72% 2%, 80% 4%, 88% 2%, 97% 5%,
+    95% 13%, 98% 21%, 95% 29%, 98% 37%, 95% 45%, 98% 53%, 95% 61%, 98% 69%, 95% 77%, 98% 85%, 94% 95%,
+    86% 93%, 78% 96%, 70% 93%, 62% 96%, 54% 93%, 46% 96%, 38% 93%, 30% 96%, 22% 93%, 14% 96%, 5% 93%,
+    7% 85%, 4% 77%, 7% 69%, 4% 61%, 7% 53%, 4% 45%, 7% 37%, 4% 29%, 7% 21%, 4% 13%
+  );
+}
+
+.thank-paper::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(126,27,21,.13);
+  pointer-events: none;
+}
+
+.thank-content {
+  width: min(100%, 410px);
+  text-align: center;
+}
+.thank-floral {
+  color: var(--gold-600);
+  font-size: clamp(27px, 7vw, 42px);
+  margin-bottom: 12px;
+}
+.thank-kicker {
+  margin: 0 0 13px;
+  color: #8d6b31;
+  font: 600 clamp(8px, 2vw, 10px)/1.4 var(--body);
+  letter-spacing: .24em;
+}
+.thank-title {
+  margin: 0;
+  color: var(--ink);
+  font: 400 clamp(2.55rem, 10vw, 4.6rem)/1 var(--display);
+}
+.thank-copy {
+  margin: 27px auto 0;
+  width: min(90%, 340px);
+  color: #6a2c22;
+  font: 400 clamp(13px, 3.7vw, 17px)/1.7 var(--body);
+}
+.thank-names {
+  margin: 25px 0 0;
+  color: var(--ink);
+  font: 400 clamp(1.7rem, 7vw, 2.7rem)/1.1 var(--display);
+}
+.thank-names span {
+  font-family: var(--serif);
+  font-size: .75em;
+  margin: 0 .1em;
+}
+.thank-divider {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: center;
+  margin: 25px auto 14px;
+  color: var(--gold-600);
+}
+.thank-divider i {
+  width: min(25vw, 110px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-600), transparent);
+}
+.thank-date {
+  margin: 0;
+  color: #8a5d23;
+  font: 600 10px/1.4 var(--body);
+  letter-spacing: .2em;
+}
+
+.paper-corner { position:absolute; width:42px; height:42px; border-color:rgba(157,111,34,.28); pointer-events:none; }
+.corner-tl { top:25px; left:27px; border-top:1px solid; border-left:1px solid; }
+.corner-tr { top:25px; right:27px; border-top:1px solid; border-right:1px solid; }
+.corner-bl { bottom:25px; left:27px; border-bottom:1px solid; border-left:1px solid; }
+.corner-br { bottom:25px; right:27px; border-bottom:1px solid; border-right:1px solid; }
+
+@media (max-width: 430px) {
+  .page-thank-you { padding: 34px 8px 28px; }
+  .thank-paper { width: min(92vw, 390px); min-height: 70svh; padding: 50px 22px; }
+  .thank-paper::before { inset: 10px; }
+  .thank-content { width: 100%; }
+  .thank-copy { width: min(92%, 300px); font-size: 12.5px; line-height: 1.65; }
+  .thank-names { margin-top: 20px; }
+  .thank-divider { margin-top: 20px; }
+  .paper-corner { width: 30px; height: 30px; }
+  .corner-tl { top: 19px; left: 21px; }
+  .corner-tr { top: 19px; right: 21px; }
+  .corner-bl { bottom: 19px; left: 21px; }
+  .corner-br { bottom: 19px; right: 21px; }
+}
+
+@media (max-height: 700px) and (max-width: 430px) {
+  .thank-paper { min-height: 78svh; padding-top: 40px; padding-bottom: 40px; }
+  .thank-floral { margin-bottom: 6px; }
+  .thank-copy { margin-top: 18px; }
+  .thank-names { margin-top: 17px; }
+  .thank-divider { margin-top: 16px; margin-bottom: 9px; }
+}
