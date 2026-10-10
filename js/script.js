@@ -7,20 +7,21 @@ openInvitation.addEventListener("click", () => {
   openInvitation.classList.add("is-hiding");
   openInvitation.setAttribute("aria-hidden", "true");
   openInvitation.disabled = true;
+
+  pageNames.classList.add("is-visible");
+  pageNames.setAttribute("aria-hidden", "false");
+
+  const openedCurtains = new Set();
+  curtainScreen.addEventListener("transitionend", event => {
+    if (event.target.classList.contains("curtain") && event.propertyName === "transform") {
+      openedCurtains.add(event.target);
+      if (openedCurtains.size === 2) {
+        curtainScreen.remove();
+      }
+    }
+  });
+
   curtainScreen.classList.add("is-opening");
-
-  setTimeout(() => {
-    pageNames.classList.add("is-visible");
-    pageNames.setAttribute("aria-hidden", "false");
-  }, 1050);
-
-  setTimeout(() => {
-    curtainScreen.style.opacity = "0";
-  }, 3200);
-
-  setTimeout(() => {
-    curtainScreen.remove();
-  }, 4050);
 });
 
 /* ---------------------------------------------------------
