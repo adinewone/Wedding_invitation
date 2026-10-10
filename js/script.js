@@ -88,8 +88,9 @@ setLanguage("en");
 const directionsBtn = document.getElementById("directionsBtn");
 if (directionsBtn) {
   directionsBtn.addEventListener("click", () => {
-    const mapsUrl = "https://www.google.com/maps/place/Shivtirth+Mangal+Karyalaya+Va+Lawns+Tirthpuri/@19.4367392,75.9179819,972m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bdae9c4abd425d3:0xc2cbd6e2959d4fc2!8m2!3d19.4367392!4d75.9179819!16s%2Fg%2F11h64y53n6?hl=en&entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D";
-    window.open(mapsUrl, "_blank");
+    const location = "Shivtirth Mangal Karyalaya Va Lawns Tirthpuri, CWP9+M5X, Gondiya - Ghungarde - Hadgaon Rd, Tirthpuri, Maharashtra 431209";
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+    window.open(mapsUrl, "_blank", "noopener,noreferrer");
   });
 }
 
