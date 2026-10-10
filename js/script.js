@@ -39,8 +39,8 @@ const copy = {
     welcomeCopy: "Having you with us means the world. We can't wait to welcome you.",
     locationKicker: "THE CELEBRATION",
     locationTitle: "Wedding Location",
-    locationName: "Tirthapuri Ghansawangi",
-    locationCity: "Jalna, Maharashtra",
+    locationName: "Shivtirth Mangal Karyalaya Va Lawns Tirthpuri",
+    locationCity: "Tirthpuri, Maharashtra",
     directions: "GET DIRECTIONS",
     thankKicker: "WITH LOVE & GRATITUDE",
     thankTitle: "Thank You",
@@ -55,8 +55,8 @@ const copy = {
     welcomeCopy: "आपली उपस्थिती आमच्यासाठी खूप खास आहे.<br>आपले स्वागत करण्यासाठी आम्ही उत्सुक आहोत.",
     locationKicker: "सोहळ्याचे ठिकाण",
     locationTitle: "विवाह स्थळ",
-    locationName: "तीर्थपुरी घनसावंगी",
-    locationCity: "जालना, महाराष्ट्र",
+    locationName: "शिवतीर्थ मंगल कार्यालय वा लॉन तीर्थपुरी",
+    locationCity: "तीर्थपुरी, महाराष्ट्र",
     directions: "मार्ग पहा",
     thankKicker: "मनःपूर्वक आभार",
     thankTitle: "धन्यवाद",
@@ -83,6 +83,15 @@ document.querySelectorAll(".language").forEach(button => {
 });
 
 setLanguage("en");
+
+/* Handle directions button click to open Google Maps */
+const directionsBtn = document.getElementById("directionsBtn");
+if (directionsBtn) {
+  directionsBtn.addEventListener("click", () => {
+    const mapsUrl = "https://www.google.com/maps/search/CWP9%2BM5X+Gondiya+Ghungarde+Hadgaon+Rd+Tirthpuri+Maharashtra+431209";
+    window.open(mapsUrl, "_blank");
+  });
+}
 
 /* Smoothly reveal later pages as the user scrolls. */
 const pageObserver = new IntersectionObserver(entries => {
